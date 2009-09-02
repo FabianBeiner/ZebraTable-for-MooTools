@@ -23,7 +23,7 @@
 			},
 			this);
 			table.getElements('tr:nth-child(even)').each(function(tr) {
-				this.addZebra(tr, 'cssEven');
+				this.addZebra(tr, this.options.cssEven);
 			}, this);
 		},
 
