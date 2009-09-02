@@ -18,11 +18,11 @@
 		},
 
 		zebraize: function(table) {
-			table.getElements('tr:nth-child(odd)').each(function(tr, i) {
+			table.getElements('tr:nth-child(odd)').each(function(tr) {
 				this.addZebra(tr, this.options.cssOdd);
 			},
 			this);
-			table.getElements('tr:nth-child(even)').each(function(tr, i) {
+			table.getElements('tr:nth-child(even)').each(function(tr) {
 				this.addZebra(tr, 'cssEven');
 			}, this);
 		},
