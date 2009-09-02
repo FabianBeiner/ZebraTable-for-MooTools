@@ -1,9 +1,7 @@
-(function($) { 
+(function($) {
 	this.ZebraTable = new Class({
-		/* implements */
-		Implements: [Options],
+		Implements: [Event, Options],
 
-		/* options */
 		options: {
 			elements: 'table.list-table',
 			cssEven: 'even',
@@ -11,45 +9,37 @@
 			cssHighlight: 'highlight',
 			cssMouseEnter: 'mo'
 		},
-	
-		/* initialization */
+
 		initialize: function(options) {
-			/* set options */
 			this.setOptions(options);
-			/* zebra-ize! */
 			$$(this.options.elements).each(function(table) {
 				this.zebraize(table);
-			},this);
+			}, this);
 		},
-	
-		/* a method that does whatever you want */
+
 		zebraize: function(table) {
-			/* for every row in this table... */
-			table.getElements('tr').each(function(tr,i) {
-				/* check to see if the row has th's
-					if so, leave it alone
-					if not, move on */
-				if(tr.getFirst().get('tag') != 'th') {
-					/* set the class for this based on odd/even */
-					var self = this, klass = i % 2 ? self.options.even : self.options.odd;
-					/* start the events! */
-					tr.addClass(klass).addEvents({
-						/* mouseenter */
-						mouseenter: function () {
-							if(!tr.hasClass(self.options.cssHighlight)) tr.addClass(self.options.cssMouseEnter).removeClass(klass);
-						},
-						/* mouseleave */
-						mouseleave: function () {
-							if(!tr.hasClass(self.options.cssHighlight)) tr.removeClass(self.options.cssMouseEnter).addClass(klass);
-						},
-						/* click */
-						click: function() {
-							tr.toggleClass(self.options.cssMouseEnter).toggleClass(self.options.cssHighlight);
-							if(!tr.hasClass(self.options.cssHighlight)) tr.removeClass(self.options.cssMouseEnter);
-						}
-					});
+			table.getElements('tr:nth-child(odd)').each(function(tr, i) {
+				this.addZebra(tr, this.options.cssOdd);
+			},
+			this);
+			table.getElements('tr:nth-child(even)').each(function(tr, i) {
+				this.addZebra(tr, 'cssEven');
+			}, this);
+		},
+
+		addZebra: function(tr, cssValue) {
+			self = this;
+			tr.addClass(cssValue).addEvents({
+				mouseenter: function() {
+					if (!tr.hasClass(self.options.cssHighlight)) tr.addClass(self.options.cssMouseEnter).removeClass(cssValue);
+				},
+				mouseleave: function() {
+					if (!tr.hasClass(self.options.cssHighlight)) tr.removeClass(self.options.cssMouseEnter).addClass(cssValue);
+				},
+				click: function() {
+					tr.removeClass(self.options.cssMouseEnter, cssValue).toggleClass(self.options.cssHighlight);
 				}
-			},this);
+			});
 		}
 	});
 })(document.id);
