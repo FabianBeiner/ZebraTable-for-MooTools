@@ -1,5 +1,7 @@
-ZebraTable
+[DEPRECATED] ZebraTable
 =========
+
+**This repository is outdated. Please use [HtmlTable.Zebra](http://mootools.net/docs/more/Interface/HtmlTable.Zebra) of MooTools More instead.**
 
 ZebraTable allows for quick and easy table row highlighting. ZebraTable also allows for different color highlighting during mouseenter and click events.
 
